@@ -1,0 +1,40 @@
+>Utilisation de la commande : "top"
+    M : trie par utilisation de la mémoire
+    P:Trie par utilisation du CPU
+    1:Affichage d'utilisation de chaque coeur de processeur
+
+>Possibilité d'utiliser "htop" pour une meilleure interface graphique
+
+>Utilitaire de surveillance: "nmon"
+>Possibilité d'utiliser : "glances"
+>Pour afficher des stats détaillés : "dstat"
+Afficher les processus en cours avec utilisation de CPU en temps réel : mpstat
+Affichage utilisation de la mémoire : free -h
+ -h = human-readable + utilisation de vmstat 1
+Affichage de l'utilisation du disque : "df -h" 
+Affichage d'utilisation du réseau : "ifstat"
+Affichage des ports d'écoute : "netstat -tuln"
+
+
+
+| **Ressource**                  | **Commande**              | **Description**                                |
+| ------------------------------ | ------------------------- | ---------------------------------------------- |
+| **CPU**                        | `top`, `mpstat`, `vmstat` | Affiche l'utilisation du CPU                   |
+| **Mémoire**                    | `free -h`, `vmstat`       | Affiche l'utilisation de la mémoire            |
+| **Disque**                     | `df -h`, `du -sh`         | Affiche l'utilisation du disque                |
+| **Réseau**                     | `ifstat`, `netstat`, `ss` | Affiche les statistiques réseau                |
+| **Processus**                  | `ps aux`, `top`, `htop`   | Affiche les processus en cours                 |
+| **Surveillance en temps réel** | `watch -n 1`              | Réexécute une commande à intervalles réguliers |
+
+
+
+Script personnalisé pour surveiller certaines ressources en temps rééls: watch -n 1 "top -bn1 | grep 'Cpu\|Mem'"
+script de surveillance: surveillance.sh
+Surveillance de manière avancée avec un grapique: collectd
+
+============Résumé=====================
+Pour une surveillance rapide et basique:  top, htop ou glances.
+Pour une surveillance détaillée, installe nmon, dstat ou crée un script avec watch.
+Pour des graphiques et des métriques avancées, explore Prometheus, Grafana, ou collectd.
+
+

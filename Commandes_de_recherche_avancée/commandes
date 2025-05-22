@@ -1,0 +1,37 @@
+===Commandes de recherche avancée===
+
+>Soit utiliser :
+echo 'Que la force soit avec toi.' > mon_texte1.txt
+echo 'Que la force soit avec toi.' > mon_texte2.txt
+echo 'Que la force soit avec toi.' > mon_texte3.txt
+echo 'Que la force soit avec toi.' > mon_texte4.txt
+echo 'Que la force soit avec toi.' > mon_texte5.txt
+
+>Soit créer un script
+for i in {1..5}; do echo "Que la force soit avec toi." > mon_texte$i.txt; done
+
+>Pour vérifier : cat mon_texte*.txt
+
+>Répartition des fichiers dans les répertoires : mv = commande pour déplacer un fichier.
+
+mv mon_texte1.txt ~/Bureau/
+mv mon_texte2.txt ~/Documents/
+mv mon_texte3.txt ~/Téléchargements/
+mv mon_texte4.txt ~/Vidéos/
+mv mon_texte5.txt ~/Images/
+
+>Vérification :
+ls ~/Bureau/
+ls ~/Documents/
+ls ~/Téléchargements/
+ls ~/Vidéos/
+ls ~/Images/
+
+Localisation des 5 fichiers « mon_texte.txt » : grep -rl "force" ~
+grep = recherche de texte dans les fichiers.
+    • -r = recherche récursive dans les sous-dossiers.
+    • -l = affiche uniquement le nom des fichiers trouvés.
+    • "force" = le mot à chercher.
+    • ~ = ton répertoire personnel.
+OU : find ~ -type f -name "mon_texte*.txt" -exec grep -l "force" {} +
+

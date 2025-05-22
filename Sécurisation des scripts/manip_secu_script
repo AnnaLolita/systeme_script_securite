@@ -1,0 +1,45 @@
+| Risque                                   | Description                                               |
+| ---------------------------------------- | --------------------------------------------------------- |
+| **Fuite d’informations sensibles**       | Mot de passe en clair dans `.env`, scripts, logs          |
+| **Exécution de commandes malveillantes** | Mauvaise validation des entrées utilisateur               |
+| **Élévation de privilèges**              | Lancement de scripts avec `sudo` sans contrôle            |
+| **Injections Shell ou SQL**              | Concaténation de variables non vérifiées                  |
+| **Surcharge du système**                 | Boucles mal contrôlées (logs, surveillances, sauvegardes) |
+| **Mauvaise gestion des permissions**     | Fichiers `.env`, sauvegardes, ou logs accessibles à tous  |
+
+Recommandations
+Utiliser "shellcheck" pour analyser les scripts Bash
+Journaliser les erreurs dans des fichiers avec permissions restreintes
+Ne jamais exécuter un script en sudo sans validation ou prompt clair
+Supprimer ou chiffrer les sauvegardes contenant des données sensibles
+
+!!!
+ Eviter les privilèges root inutiles
+ Protéger les fichiers générés : umask 077 # Donne les permissions 600 (lecture/écriture)
+ Valider les entrées utilisateur
+ Gérer les erreurs et échecs avec set "-euo pipefail" et tester les commandes sensibles
+ Eviter les chemins absolus 
+ Protéger les clés/API ou mot de passe
+ Ne pas utiliser "eval"
+ Utiliser "trap" pour gérer les interruptions
+ Ne pas rediriger les erreurs ver /dev/null sans justification
+ Journaliser les opérations sensibles
+ 
+ Exemple d'en-tête sécurisé de script
+        #!/usr/bin/env bash
+        set -euo pipefail
+        IFS=$'\n\t'
+        umask 077
+        trap 'echo "Script interrompu ou erreur détectée. Nettoyage..."; exit 1' INT TERM ERR
+
+ set -euo pipefail :
+    -e : Stopper à la première erreur
+    -u : Stopper si une variable est non définie
+    -o pipefail : Détecte les erreurs dans les pipes
+    IFS=$'\n\t' : Rend le découpage des chaînes plus strict (évite les erreurs avec les espaces)
+    umask 077 : Restriction des droits sur les fichiers créés
+    trap : Capture les interruptions
+
+
+ 
+ 

@@ -1,0 +1,66 @@
+https://restcountries.com/
+Script: infos_pays_secure.sh
+Script + journalisation : pays_journalisation.sh
+>>LOG_DIR journalisé par jour : ~/logs_api_pays/2025‑05‑22.log
+Rotation des logs : rotate_logs.sh / en mode interactif: gestion_logs_api.sh
+Script unifié : api_pays_and_logs.sh
+
+***
+set -euo pipefail : arrête le script en cas d’erreur.
+trap : affiche une boîte d’erreur avec la ligne fautive.
+umask 077 : protège les fichiers créés (accès restreint).
+Supprime les fichiers .log une fois archivés (évite les doublons).
+***
+
+==Consultation des logs ==
+> cat ~/logs_api_pays/$(date '+%Y-%m-%d').log
+
+==Filtrage des erreurs uniquement
+> grep "\[ERROR\]" ~/logs_api_pays/*.log
+
+==Listage de tous les fichiers dispos==
+> ls ~/logs_api_pays/
+Les fichiers *.log contiennent les logs horodatés,
+les fichiers *.json contiennent les réponses brutes de l’API.
+
+==Lecture d'un log spécifique==
+> less ~/logs_api_pays/2025-05-22.log
+
+==Suivi des logs en direct ==
+> tail -f ~/logs_api_pays/$(date '+%Y-%m-%d').log
+
+
+
+
+
+    | Problème potentiel                   | Solution apportée                 |
+| ------------------------------------ | --------------------------------- |
+| API indisponible ou connexion perdue | Vérification de code HTTP         |
+| Mauvais nom de pays                  | Test de présence dans la réponse  |
+| JSON corrompu ou vide                | `jq empty` pour valider le format |
+| Commandes manquantes (`jq`, `curl`)  | Vérification préalable            |
+| Problème d'interruption (`Ctrl+C`)   | `trap` pour une sortie propre     |
+
+
+=====Journalisation====
+| Objectif                           | Apport en cybersécurité                                                                                                |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Détection d’incidents**          | Les logs constituent la première preuve d’une activité anormale (appels API trop fréquents, erreur 4xx/5xx répétées…). |
+| **Traçabilité & conformité**       | RGPD, ISO 27001 ou PCI‑DSS exigent de conserver l’historique des accès et traitements de données.                      |
+| **Analyse post‑mortem / Forensic** | Après un incident, les journaux permettent de reconstituer la chronologie précise des événements.                      |
+| **Supervision & métriques**        | Temps de réponse, taux d’erreur, charge… tout cela se lit dans des logs bien structurés.                               |
+
+Bonnes pratiques de logging :
+• format horodaté ISO 8601 (2025‑05‑22T14:05:33+02:00)
+• permissions restrictives ( umask 077 ), rotation (logrotate)
+• aucune donnée sensible en clair (anonymiser tokens, IP, etc.)
+• séparer les niveaux : INFO / WARNING / ERROR
+
+| Besoin                                                   | Solution                                                             |
+| -------------------------------------------------------- | -------------------------------------------------------------------- |
+| **Rotation automatique** des logs                        | Ajouter une règle `logrotate` pour `~/logs_api_pays/*.log`.          |
+| **Centralisation** (SIEM, ELK, Graylog)                  | Expédier les logs via `rsyslog` ou `filebeat`.                       |
+| **Hash ou signature** pour garantir l’intégrité des logs | Post‑traiter chaque fichier avec `sha256sum` ou `gpg --detach-sign`. |
+| **Masquage info sensible** (tokens, IP)                  | Utiliser des `sed`/`jq` pour tronquer les champs avant log.          |
+
+

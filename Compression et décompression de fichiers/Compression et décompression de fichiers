@@ -1,0 +1,79 @@
+===Compression et décompression de fichiers===
+>Créer le dossier
+mkdir ~/Documents/Plateforme
+
+mkdir = "make directory", crée un dossier.
+    • ~ = ton répertoire personnel.
+    • ~/Documents/Plateforme = chemin complet vers le nouveau dossier à créer.
+Vérification : ls ~/Documents
+
+>Ajout du fichier précédemment crée : mv ~/Documents/mon_texte2.txt ~/Documents/Plateforme/
+Vérification : ls ~/Documents/Plateforme
+
+>Duplicata 4 fois : 
+-Se mettre dans le dossier Plateforme : cd ~/Documents/Plateforme
+-Renommer le fichier : mv ~/Documents/Plateforme/mon_texte2.txt ~/Documents/Plateforme/mon_texte.txt
+-Dupliquer en changeant son nom : 
+cp mon_texte.txt mon_texte1.txt
+cp mon_texte.txt mon_texte2.txt
+cp mon_texte.txt mon_texte3.txt
+cp mon_texte.txt mon_texte4.txt
+OU
+cp ~/Documents/Plateforme/mon_texte.txt ~/Documents/Plateforme/mon_texte1.txt
+cp ~/Documents/Plateforme/mon_texte.txt ~/Documents/Plateforme/mon_texte2.txt
+cp ~/Documents/Plateforme/mon_texte.txt ~/Documents/Plateforme/mon_texte3.txt
+cp ~/Documents/Plateforme/mon_texte.txt ~/Documents/Plateforme/mon_texte4.txt
+
+Vérification : ls ~/Documents/Plateforme
+
+>Archivage et compression : tar -czf Plateforme.tar.gz ~/Documents/Plateforme
+-c : crée une nouvelle archive
+-z : compresse avec gzip
+-f : spécifie le nom de l’archive
+
+Compression max : tar -czf Plateforme.tar.gz ~/Documents/Plateforme --use-compress-program="gzip -9"
+
+OU en deux étapes : 
+tar -cf Plateforme.tar ~/Documents/Plateforme
+gzip -9 Plateforme.tar
+
+Compression rapide (niveau 1) : tar -czf Plateforme.tar.gz ~/Documents/Plateforme --use-compress-program="gzip -1"
+OU
+tar -cf Plateforme.tar ~/Documents/Plateforme
+gzip -1 Plateforme.tar
+
+Autres méthodes de compression avec tar
+bzip2 (meilleure que gzip mais plus lent ) : tar -cjf Plateforme.tar.bz2 ~/Documents/Plateforme
+xz(encore meilleur mais encore plus lent) : tar -cJf Plateforme.tar.xz ~/Documents/Plateforme
+
+Décompression :
+Si créé avec gzip (ficher .tar.gz) : tar -xzvf ~/Documents/Plateforme.tar.gz
+-x : extraire l'archive.
+-z : indiquer que l'archive est compressée avec gzip.
+-v : mode verbeux, pour afficher les fichiers extraits.
+-f : spécifie le fichier à extraire.
+
+Si fichier .tar.bz2 (bzip2) : tar -xjvf ~/Documents/Plateforme.tar.bz2
+-x : extraire l'archive.
+-j : indiquer que l'archive est compressée avec bzip2.
+-v : mode verbeux.
+-f : spécifie le fichier à extraire.
+
+Décompresser un fichier .tar.xz(xz) : tar -xJvf ~/Documents/Plateforme.tar.xz
+-x : extraire l'archive.
+-J : indiquer que l'archive est compressée avec xz.
+-v : mode verbeux.
+-f : spécifie le fichier à extraire.
+
+Autres options :
+extraction sans affichage de fichiers : tar -xzf ~/Documents/Plateforme.tar.gz
+extaction dans un répertoire spécifique : tar -xzvf ~/Documents/Plateforme.tar.gz -C ~/Documents/NouveauDossier/
+Affichage du contenu sans l’extraire : tar -tzvf ~/Documents/Plateforme.tar.gz
+
+Vérification de l’extraction :
+-aller dans le répertoire cible :-ls ~/Documents/Plateforme
+
+Résumé des commandes de décompression :
+.tar.gz : tar -xzvf
+.tar.bz2 : tar -xjvf
+.tar.xz : tar -xJvf

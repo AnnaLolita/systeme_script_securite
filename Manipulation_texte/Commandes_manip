@@ -1,0 +1,18 @@
+Création du script python : personnes.py 
+Taper python3 personnes.py pour executer
+
+Extraction des villes avec awk :awk -F ',' 'NR > 1 {print $3}' personnes.csv
+awk : outil de traitement de texte en ligne de commande.
+-F ',' : définit la virgule comme séparateur de champs (CSV).
+ NR > 1 : saute la première ligne (l'en-tête), NR signifie "numéro de ligne".
+ {print $3} : affiche le troisième champ, c’est-à-dire la ville.
+ 
+Extraction sans sauter l’en-tête : awk -F ',' '{print $3}' personnes.csv
+Tri par ordre alphabétique des villes : awk -F ',' 'NR > 1 {print $3}' personnes.csv | sort
+Affichage des villes sans doublons : awk -F ',' 'NR > 1 {print $3}' personnes.csv | sort | uniq
+Comptage du nombre de fois chaque ville apparail : awk -F ',' 'NR > 1 {print $3}' personnes.csv | sort | uniq -c
+Filtrage et affichage uniquement des lignes où la ville est « Paris » : awk -F ',' '$3 == "Paris"' personnes.csv
+
+Script :  analyse_villes .sh 
+Autre manière : (script interactif) : menu_villes.sh
+

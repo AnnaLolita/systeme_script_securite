@@ -1,0 +1,9 @@
+Date,CPU_Utilisation,Mem_Utilisation,Disque_Utilisation,Reseau_Entrant,Reseau_Sortant,,,,,,,
+2025-05-20 19:23:46,1,5,918Mi/1,9Gi (48315,8%),71% utilisé,6,0G de 8,9G,KB/s,in,
+2025-05-20 19:23:53,0,51,918Mi/1,9Gi (48315,8%),71% utilisé,6,0G de 8,9G,KB/s,in,
+2025-05-20 19:24:00,64,36,1,0Gi/1,9Gi (52,6316%),71% utilisé,6,0G de 8,9G,KB/s,in
+2025-05-20 19:24:07,1,1,0Gi/1,9Gi (52,6316%),71% utilisé,6,0G de 8,9G,KB/s,in,
+2025-05-20 19:24:14,3,5,1,0Gi/1,9Gi (52,6316%),71% utilisé,6,0G de 8,9G,KB/s,in
+2025-05-20 19:24:21,1,1,0Gi/1,9Gi (52,6316%),71% utilisé,6,0G de 8,9G,KB/s,in,
+2025-05-20 19:24:28,0,5,1,0Gi/1,9Gi (52,6316%),71% utilisé,6,0G de 8,9G,KB/s,in
+2025-05-20 19:24:35,10,55,1,0Gi/1,9Gi (52,6316%),71% utilisé,6,0G de 8,9G,KB/s,in

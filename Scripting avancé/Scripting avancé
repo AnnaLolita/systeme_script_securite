@@ -1,0 +1,14 @@
+voir script : sauvegarde_plateforme.sh
+Automatiser la sauvegarde avec crontab -e
+Ajouter une tâche : 0 0 * * * /Documents/Plateforme/sauvegarde_plateforme.sh
+Vérification de la configuration : crontab -l
+
+++ notification par mail : 
+MAILTO="anna-lolita.totobesola@laplateforme.io"
+0 0 * * * /Documents/Plateforme/sauvegarde_plateforme.sh
+
+
+
+
+
+ 

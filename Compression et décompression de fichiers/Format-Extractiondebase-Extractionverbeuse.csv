@@ -1,0 +1,5 @@
+"Format","Extraction de base","Extraction verbeuse"
+".tar.gz","tar -xzf Plateforme.tar.gz","tar -xzvf ..."
+".tar.bz2","tar -xjf Plateforme.tar.bz2","tar -xjvf ..."
+".tar.xz","tar -xJf Plateforme.tar.xz","tar -xJvf ..."
+".gzseul","gunzip fichier.txt.gz",""

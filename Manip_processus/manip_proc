@@ -1,0 +1,67 @@
+>Affichage des processus actifs : ps aux
+ps : affiche les processus.
+a : montre les processus de tous les utilisateurs.
+u : affiche l’utilisateur qui a lancé chaque processus.
+x : affiche les processus qui ne sont pas associés à un terminal.
+
+>Affichage du processus de manière dynamique : top
+>encore plus agréable : htop 
+>Si cette dernière pas installée, faire : sudo apt install htop
+
+>Liste des processus d’un utilisateur spécifique : ps -u $USER
+>Affichage unique des PID et noms de commande : ps -eo pid,comm
+>Commande permettant de fermer (ou tuer) un processus : kill
+>Commande pour fermer par nom de programme : killall
+>Fermeture d’un processus en utilisant son PID : kill <PID> 
+ex : kill 1234
+
+>Si processus ne se ferme pas : kill -9 <PID> #forcer
+Fermeture d’un processus par son nom (sans chercherle PID) : killall nom_du_processus
+exemple : killall firefox ou killall -9 firefox pour forcer
+
+>Trouver le PID avant de le tuer : ps aux | grep nom_du_processus puis récupérer le PID de la 2e colonne  en faisant kill <PID>
+
+=Résumé =:
+Commande            Utilité
+kill <PID>          Termine un processus par PID
+kill -9 <PID>       Termine de force
+killall nom         Termine tous les processus portant ce nom
+`ps aux
+grep nom`
+
+
+Script pour afficher ou vider l’historique : historique_processus.sh
+Création d’un fichier .deb pour installer l’application : 
+
+*Comportement
+Comparaison : Terminaison normale vs forcée
+⚙️ Aspect                           Terminaison normale (SIGTERM)                               Terminaison forcée (SIGKILL)
+🔢 Numéro du signal                 15                                                          9
+📦 Commande utilisée                kill <PID> ou kill -15 <PID>                                kill -9 <PID>
+🎯 Type de demande                  Polie (le processus peut refuser ou retarder)               Imposée (le processus meurt immédiatement)
+🧠 Intervention du programme        Oui : il peut sauvegarder, nettoyer, se fermer proprement   Non : aucune chance de se défendre ou de se nettoyer
+💥 Risques                          Faibles : les données sont souvent sauvegardées             Élevés : perte de données non sauvegardées
+✅ Utilisation recommandée          Par défaut, pour laisser une chance au processus            En dernier recours, s'il est bloqué ou ne répond plus
+🛠️ Exemple pratique                 kill 1234                                                   kill -9 1234
+
+🎓 Ce qui se passe concrètement
+Situation                               Résultat
+kill 1234                               Envoie SIGTERM : le processus peut réagir (fermer des fichiers, sauvegarder ses préférences, etc.).
+kill -9 1234                            Envoie SIGKILL : le noyau arrête le processus immédiatement. Aucun "au revoir", aucune sauvegarde.
+
+🔍 Exemple avec Firefox :
+   Lancer Firefox
+   Utiliser dans un terminal :
+        ◦ kill $(pidof firefox) → Firefox demande de fermer les onglets
+        ◦ kill -9 $(pidof firefox) → Firefox se ferme brutalement, sans dialogue
+
+📌 Résumé visuel :
+rust
+CopierModifier
+[ SIGTERM ] -> "Peux-tu t'arrêter proprement ?" → Oui (ou Non)
+[ SIGKILL ] -> "Arrête-toi MAINTENANT." → N'a pas le choix
+
+Script de comportement : test_kill.sh
+Plus interactif : test_kill_zenity.sh
+
+
